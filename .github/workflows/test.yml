@@ -26,13 +26,14 @@ jobs:
     runs-on: ubuntu-latest
     container: swift:6.0-noble
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
       - name: Trust jokeAPI directory
         run: git config --global --add safe.directory /__w/jokeAPI/jokeAPI
         
       - name: Checkout temp branch
         run: git checkout -b temp-branch
-      - name: Checkout repository
-        uses: actions/checkout@v3
       - name: Check out toolbox
         uses: actions/checkout@v5
         with:
@@ -45,7 +46,6 @@ jobs:
       - name: Config Git
         run: |
           git config --global --add safe.directory /__w/toolbox/toolbox
-          git checkout -b temp-branch
       - name: Test Makefile
         run: |
           make build
