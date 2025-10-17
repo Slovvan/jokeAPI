@@ -9,6 +9,7 @@ struct CreateBlague: AsyncMigration {
             .field("type", .string, .required)
             .field("setup", .string)
             .field("delivery", .string)
+            .field("joke", .string)
             .field("safe", .bool, .required)
             .field("lang", .string, .required)
             .field("nsfw", .bool, .required)

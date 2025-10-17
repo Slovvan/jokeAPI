@@ -9,6 +9,7 @@ struct BlagueDTO: Content {
     var type: String
     var setup: String?
     var delivery: String?
+    var joke: String?
     var safe: Bool
     var lang: String
     var nsfw: Bool

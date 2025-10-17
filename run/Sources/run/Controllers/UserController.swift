@@ -6,12 +6,36 @@ struct UserController: RouteCollection {
         let users = routes.grouped("users")
 
         users.get(use: self.index)
+        users.post("login", use: self.login)
         users.post(use: self.create)
         users.group(":userID") { user in
             user.put(use: self.update)
             user.delete(use: self.delete)
         }
     }
+
+    struct LoginRequest: Content {
+    let email: String
+    let password: String
+}
+
+    @Sendable
+    func login(req: Request) async throws -> UserDTO {
+        let loginData = try req.content.decode(LoginRequest.self)
+        
+        guard let user = try await User.query(on: req.db)
+            .filter(\.$email == loginData.email)
+            .first() else {
+            throw Abort(.unauthorized, reason: "Email no encontrado")
+        }
+        
+        if user.password != loginData.password {
+            throw Abort(.unauthorized, reason: "Contraseña incorrecta")
+        }
+        
+        return user.toDTO()
+    }
+
 
     @Sendable
     func index(req: Request) async throws -> [UserDTO] {

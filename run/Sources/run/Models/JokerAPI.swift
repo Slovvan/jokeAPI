@@ -2,22 +2,23 @@ import Vapor
 
 struct JokeAPIResponse: Content {
     let error: Bool
-    let category: String
-    let type: String
+    let category: String?
+    let type: String?
     let setup: String?
     let delivery: String?
-    let flags: Flags
-    let safe: Bool
-    let id: Int
-    let lang: String
+    let joke: String?
+    let flags: Flags?
+    let safe: Bool?
+    let id: Int?
+    let lang: String?
 
     struct Flags: Content {
-        let nsfw: Bool
-        let religious: Bool
-        let political: Bool
-        let racist: Bool
-        let sexist: Bool
-        let explicit: Bool
+        let nsfw: Bool?
+        let religious: Bool?
+        let political: Bool?
+        let racist: Bool?
+        let sexist: Bool?
+        let explicit: Bool?
     }
 }
 
